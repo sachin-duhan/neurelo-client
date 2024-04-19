@@ -1,0 +1,133 @@
+{
+  "objects": {
+    "categories": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "identifier": true,
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          }
+        },
+        "categoryName": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Timestamp"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Timestamp",
+          "default": {
+            "function": "now"
+          }
+        }
+      }
+    },
+    "users": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "identifier": true,
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          }
+        },
+        "email": {
+          "type": "string",
+          "unique": true
+        },
+        "username": {
+          "type": "string",
+          "unique": true
+        },
+        "passwordHash": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Timestamp"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Timestamp",
+          "default": {
+            "function": "now"
+          }
+        },
+        "tasks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/innerObjects/tasks"
+          }
+        }
+      }
+    }
+  },
+  "innerObjects": {
+    "tasks": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "sourceType": "ObjectId"
+        },
+        "categoryIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "sourceType": "ObjectId"
+          }
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "nullable": true
+        },
+        "status": {
+          "$ref": "#/enums/TaskStatus",
+          "default": {
+            "value": "NEW"
+          }
+        },
+        "dueDate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Timestamp",
+          "nullable": true
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Timestamp"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Timestamp",
+          "default": {
+            "function": "now"
+          }
+        }
+      }
+    }
+  },
+  "enums": {
+    "TaskStatus": [
+      "INPROGRESS",
+      "COMPLETED",
+      "NEW",
+      "PENDING"
+    ]
+  }
+}
